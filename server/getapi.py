@@ -55,13 +55,23 @@ def is_cache_valid(path):
 
 @app.route('/tokens', methods=['GET'])
 def get_tokens_data():
+    use_cache = False
+
     if is_cache_valid(MEMECOINS_FILE):
-        with open(MEMECOINS_FILE, 'r') as f:
-            cached_data = json.load(f)
-        print("Returning cached data.")
+        try:
+            with open(MEMECOINS_FILE, 'r') as f:
+                cached_data = json.load(f)
+                # Only use if data exists and has 'sponsored'
+                if cached_data and 'sponsored' in cached_data and len(cached_data['sponsored']) > 0:
+                    use_cache = True
+        except (json.JSONDecodeError, FileNotFoundError):
+            pass  # If the file is corrupt or unreadable, skip cache
+
+    if use_cache:
+        print("✅ Returning valid cached data.")
         return jsonify(cached_data)
 
-    print("Fetching new data from API.")
+    print("🔄 Cache invalid or empty — fetching from API.")
     sponsored = fetch_token_metadata(sponsored_addresses)
     result = {'sponsored': sponsored}
 

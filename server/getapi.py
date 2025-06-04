@@ -4,7 +4,7 @@ from flask import Flask, jsonify, render_template
 import requests
 from dotenv import load_dotenv
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 CORS(app)
 
 @app.route('/')

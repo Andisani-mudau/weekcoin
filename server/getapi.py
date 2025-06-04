@@ -4,6 +4,9 @@ from flask import Flask, jsonify
 import requests
 from dotenv import load_dotenv
 
+port = int(os.environ.get('PORT', 10000))  # fallback to 10000 for local
+app.run(host='0.0.0.0', port=port)
+
 # Load environment variables from .env file
 load_dotenv()
 

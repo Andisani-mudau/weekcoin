@@ -23,17 +23,17 @@
 
 @font-face {
     font-family: 'coin';
-    src: url('../fonts/BebasNeue-Regular.ttf') format('truetype');
+    src: url('fonts/BebasNeue-Regular.ttf') format('truetype');
     font-style: normal;
 }
 @font-face {
     font-family: 'body';
-    src: url('../fonts/TT\ Fors\ Trial\ ExtraLight.ttf') format('truetype');
+    src: url('fonts/TT\ Fors\ Trial\ ExtraLight.ttf') format('truetype');
     font-style: normal;
 }
 @font-face {
     font-family: 'button';
-    src: url('../fonts/TT\ Fors\ Trial\ Regular.ttf') format('truetype');
+    src: url('fonts/TT\ Fors\ Trial\ Regular.ttf') format('truetype');
     font-style: normal;
 }
 /* @font-face {

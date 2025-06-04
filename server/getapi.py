@@ -4,8 +4,8 @@ from flask import Flask, jsonify
 import requests
 from dotenv import load_dotenv
 
-port = int(os.environ.get('PORT', 10000))  # fallback to 10000 for local
-app.run(host='0.0.0.0', port=port)
+app = Flask(__name__)
+CORS(app)
 
 # Load environment variables from .env file
 load_dotenv()
@@ -13,8 +13,6 @@ load_dotenv()
 # Get the API key
 api_key = os.getenv("API_KEY")
 
-app = Flask(__name__)
-CORS(app)
 
 # Read token addresses from sponsored.txt and recommended.txt
 with open('server/sponsored.txt', 'r') as file:
@@ -64,4 +62,5 @@ def get_tokens_data():
     })
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))  # Get PORT from environment or use 5000
+    app.run(host='0.0.0.0', port=port)

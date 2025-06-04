@@ -4,12 +4,8 @@ from flask import Flask, jsonify, render_template
 import requests
 from dotenv import load_dotenv
 
-app = Flask(__name__, template_folder='./templates')
+app = Flask(__name__, template_folder='../views')
 CORS(app)
-
-@app.route('/')
-def home():
-    return render_template('index.html')  # 👈 renders the HTML file
 
 # Load environment variables from .env file
 load_dotenv()
@@ -64,6 +60,9 @@ def get_tokens_data():
         'sponsored': sponsored,
        # 'recommended': recommended
     })
+@app.route('/')
+def home():
+    return render_template('index.html')
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))  # Get PORT from environment or use 5000

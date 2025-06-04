@@ -1,4 +1,6 @@
 import os
+import json
+import time
 from flask_cors import CORS
 from flask import Flask, jsonify, render_template
 import requests
@@ -7,21 +9,15 @@ from dotenv import load_dotenv
 app = Flask(__name__, template_folder='../views', static_folder='../static')
 CORS(app)
 
-# Load environment variables from .env file
 load_dotenv()
-
-# Get the API key
 api_key = os.getenv("API_KEY")
 
+MEMECOINS_FILE = 'server/memecoins.json'
+CACHE_LIFETIME = 7 * 24 * 60 * 60  # 7 days in seconds
 
-# Read token addresses from sponsored.txt and recommended.txt
 with open('server/sponsored.txt', 'r') as file:
     sponsored_addresses = [line.strip() for line in file if line.strip()]
 
-#with open('server/recommended.txt', 'r') as file:
-#    recommended_addresses = [line.strip() for line in file if line.strip()]
-
-# Set up headers with the API key
 headers = {
     'accept': 'application/json',
     'X-API-Key': api_key
@@ -51,19 +47,33 @@ def fetch_token_metadata(addresses):
         })
     return tokens_data
 
+def is_cache_valid(path):
+    if not os.path.exists(path):
+        return False
+    file_age = time.time() - os.path.getmtime(path)
+    return file_age < CACHE_LIFETIME
+
 @app.route('/tokens', methods=['GET'])
 def get_tokens_data():
+    if is_cache_valid(MEMECOINS_FILE):
+        with open(MEMECOINS_FILE, 'r') as f:
+            cached_data = json.load(f)
+        print("Returning cached data.")
+        return jsonify(cached_data)
+
+    print("Fetching new data from API.")
     sponsored = fetch_token_metadata(sponsored_addresses)
-#    recommended = fetch_token_metadata(recommended_addresses)
-    
-    return jsonify({
-        'sponsored': sponsored,
-       # 'recommended': recommended
-    })
+    result = {'sponsored': sponsored}
+
+    with open(MEMECOINS_FILE, 'w') as f:
+        json.dump(result, f)
+
+    return jsonify(result)
+
 @app.route('/')
 def home():
     return render_template('index.html')
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))  # Get PORT from environment or use 5000
+    port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)

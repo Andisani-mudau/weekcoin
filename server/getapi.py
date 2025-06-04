@@ -4,7 +4,7 @@ from flask import Flask, jsonify, render_template
 import requests
 from dotenv import load_dotenv
 
-app = Flask(__name__, template_folder='../views')
+app = Flask(__name__, template_folder='../views', static_folder='../assets')
 CORS(app)
 
 # Load environment variables from .env file

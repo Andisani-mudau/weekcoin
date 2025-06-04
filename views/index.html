@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>WEEKCOIN</title>
+   <!-- <link rel="stylesheet" href="../static/index.css">-->
     <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
 </head>
 <body>
@@ -76,7 +77,8 @@
             </div>
         </footer>
     </div>
-    <script src="../static/index.js"></script>
+    <!--<script src="../static/index.js"></script>-->
+    <script src="{{ url_for('static', filename='index.js') }}"></script>
 </body>
 </html>
 

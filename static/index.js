@@ -1,4 +1,4 @@
-fetch('http://127.0.0.1:5000/tokens')
+fetch('https://weekcoin.onrender.com/tokens')
     .then(res => res.json())
     .then(coins => {
         const sponsoredDiv = document.getElementById('sponsored-coins');

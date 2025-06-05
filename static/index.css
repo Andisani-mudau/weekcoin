@@ -104,7 +104,7 @@ html,body{
     flex-direction: row;
 }
 .banner-cont .logo h1{
-    font-size: clamp(10vw, 20rem, 6rem);
+    font-size: clamp(10vw, 20rem, 4rem);
     font-family: 'coin', sans-serif;
     letter-spacing: 4px;
     margin: 0!important;
@@ -881,9 +881,6 @@ footer .icons a img{
 @media screen and (max-width: 500px) {
     .recommended-card{
         justify-content: space-around;
-    }
-    .banner-cont .logo h1{
-    font-size: clamp(10vw, 16rem, 6rem);
     }
 }
 .sponsored{

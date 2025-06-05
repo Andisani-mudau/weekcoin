@@ -90,7 +90,7 @@ html,body{
     height: fit-content;
     display: flex;
     flex-direction: column;
-    margin: 0 40px;
+    margin: 0 10px;
 }
 .banner-cont{
     width: 100%;
@@ -881,6 +881,9 @@ footer .icons a img{
 @media screen and (max-width: 500px) {
     .recommended-card{
         justify-content: space-around;
+    }
+    .banner-bottom-info p{
+        max-width: 95%;
     }
 }
 .sponsored{

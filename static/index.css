@@ -90,7 +90,7 @@ html,body{
     height: fit-content;
     display: flex;
     flex-direction: column;
-    margin: 0 10px;
+    margin: 0 40px;
 }
 .banner-cont{
     width: 100%;

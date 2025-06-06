@@ -63,6 +63,16 @@ fetch('https://weekcoin.onrender.com/tokens')
         });*/
     })
     .catch(err => {
-        document.getElementById('sponsored-coins').innerHTML = `<p style="color:red;">Error: ${err.message}</p>`;
+        document.getElementById('sponsored-coins').innerHTML = `<div class="loader1">
+                                                                    <span class="n">N</span>
+                                                                    <span class="o">O</span>
+                                                                    <span class="t">T</span>
+                                                                    <span class="h">H</span>
+                                                                    <span class="i">I</span>
+                                                                    <span class="n2">N</span>
+                                                                    <span class="g">G</span>
+                                                                    <span class="d1">.</span>
+                                                                    <span class="d2">.</span>
+                                                                </div>`;
         //document.getElementById('recommended-coins').innerHTML = `<p style="color:red;">Error: ${err.message}</p>`;
     });

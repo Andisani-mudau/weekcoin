@@ -5,6 +5,7 @@ from flask_cors import CORS
 from flask import Flask, jsonify, render_template
 import requests
 from dotenv import load_dotenv
+from threading import Thread
 
 app = Flask(__name__, template_folder='../views', static_folder='../static')
 CORS(app)
@@ -84,6 +85,13 @@ def get_tokens_data():
 def home():
     return render_template('index.html')
 
-if __name__ == '__main__':
+def run():
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
+
+def keep_alive():
+    t = Thread(target=run)
+    t.start()
+
+if __name__ == '__main__':
+    keep_alive()

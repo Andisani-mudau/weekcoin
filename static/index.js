@@ -2,10 +2,7 @@ fetch('https://weekcoin.onrender.com/tokens')
     .then(res => res.json())
     .then(coins => {
         const sponsoredDiv = document.getElementById('sponsored-coins');
-       // const recommendedDiv = document.getElementById('recommended-coins');
-
         sponsoredDiv.innerHTML = '';
-        //recommendedDiv.innerHTML = '';
 
         const createSponsoredCard = (coin) => `
             <div class="card">
@@ -17,7 +14,7 @@ fetch('https://weekcoin.onrender.com/tokens')
                             <h3>$${coin.symbol.toUpperCase()}</h3>
                         </div>
                         <div class="card-usr-inter">
-			    <a class="card-buy ui-btn" href="https://pump.fun/coin/${coin.address}" target="_blank">
+                            <a class="card-buy ui-btn" href="https://pump.fun/coin/${coin.address}" target="_blank">
                                 <span>Buy</span>
                             </a>
                         </div>
@@ -26,41 +23,27 @@ fetch('https://weekcoin.onrender.com/tokens')
             </div>
         `;
 
-        const createRecommendedCard = (coin) => `
-            <div class="card">
-                <div class="card-in">
-                    <img src="${coin.logo}" alt="${coin.name}" style="object-fit: cover;">
-                    <div class="card-info-card">
-                        <div class="card-info">
-                            <h3>$${coin.symbol.toUpperCase()}</h3>
-                        </div>
-                        <div class="card-usr-inter">
-                            <a class="card-buy ui-btn" href="https://pump.fun/coin/${coin.address}" target="_blank">
-                                <span>Buy</span>
-                            </a>
-                        </div>
-                    </div> 
-                </div>
-            </div>
-        `;
+        // Filtering out coins without a name
+        const validCoins = coins.sponsored.filter(coin => coin.name && !coin.error);
 
-        coins.sponsored.forEach(coin => {
-            if (coin.error) {
-                sponsoredDiv.innerHTML += `<div class="card">${coin.error}</div>`;
-                return;
-            }
+        if (validCoins.length === 0) {
+            document.getElementById('sponsored-coins').innerHTML = `<div class="loader1">
+                                                                    <span class="n">N</span>
+                                                                    <span class="o">O</span>
+                                                                    <span class="t">T</span>
+                                                                    <span class="h">H</span>
+                                                                    <span class="i">I</span>
+                                                                    <span class="n2">N</span>
+                                                                    <span class="g">G</span>
+                                                                    <span class="d1">.</span>
+                                                                    <span class="d2">.</span>
+                                                                </div>`;
+            return;
+        }
+
+        validCoins.forEach(coin => {
             sponsoredDiv.innerHTML += createSponsoredCard(coin);
         });
-
-        /*coins.recommended.forEach(coin => {
-            if (coin && Object.keys(coin).length > 0) {
-                if (coin.error) {
-                    recommendedDiv.innerHTML += `<div class="card">${coin.error}</div>`;
-                    return;
-                }
-                recommendedDiv.innerHTML += createRecommendedCard(coin);
-            }            
-        });*/
     })
     .catch(err => {
         document.getElementById('sponsored-coins').innerHTML = `<div class="loader1">
@@ -74,5 +57,4 @@ fetch('https://weekcoin.onrender.com/tokens')
                                                                     <span class="d1">.</span>
                                                                     <span class="d2">.</span>
                                                                 </div>`;
-        //document.getElementById('recommended-coins').innerHTML = `<p style="color:red;">Error: ${err.message}</p>`;
     });

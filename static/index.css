@@ -393,6 +393,10 @@ html,body{
 .banner .icons a img{
     height: 100%;
 }
+.banner .icons a .sentz{
+    border-radius: 10px;
+    overflow: hidden;
+}
 .buy{
     background-color: var(--tertiary-color);
     color: var(--primary-color);

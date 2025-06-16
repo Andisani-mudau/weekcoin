@@ -368,7 +368,8 @@ html,body{
     align-items: center;
     justify-content: center;
     text-align: center;
-    font-size: x-small;
+   /* font-size: x-small;*/
+    font-size: 0.4rem;
     padding-bottom: 20px;
 }
 .banner-bottom-info p{
